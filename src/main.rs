@@ -1,4 +1,6 @@
-use bevy::{prelude::*};
+#![allow(clippy::too_many_arguments, clippy::type_complexity)]
+
+use bevy::prelude::*;
 
 fn main() {
     App::new()
