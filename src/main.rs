@@ -1,30 +1,16 @@
-use bevy::{ecs::query, prelude::*};
+use bevy::{prelude::*};
 
 fn main() {
     App::new()
-        .add_systems(Startup, add_people)
-        .add_systems(Update, (hello_world, greet_people))
+        .add_plugins(DefaultPlugins)
+        .add_systems(Startup, setup)
         .run();
 }
 
-#[derive(Component)]
-struct Person;
-
-#[derive(Component)]
-struct Name(String);
-
-fn hello_world() {
-    println!("Hello World!");
-}
-
-fn add_people(mut commands: Commands) {
-    commands.spawn((Person, Name("Elaina Proctor".to_string())));
-    commands.spawn((Person, Name("Renzo Home".to_string())));
-    commands.spawn((Person, Name("Zayna Nieves".to_string())));
-}
-
-fn greet_people(query: Query<&Name, With<Person>>) {
-    for name in &query {
-        println!("hello {}!", name.0);
-    }
+fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+    commands.spawn(Camera2dBundle::default());
+    commands.spawn(SpriteBundle {
+        texture: asset_server.load("ducky.png"),
+        ..Default::default()
+    });
 }
