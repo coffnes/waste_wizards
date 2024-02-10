@@ -6,19 +6,23 @@
 // type aliases tends to obfuscate code while offering no improvement in code cleanliness.
 #![allow(clippy::too_many_arguments, clippy::type_complexity)]
 
+pub mod ui;
+pub mod game_manager;
+
 use bevy::prelude::*;
+use game_manager::GameState;
+use ui::main_menu::*;
 
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
+        .insert_resource(DisplayQuality::Medium)
+        .insert_resource(Volume(7))
+        .add_state::<GameState>()
         .add_systems(Startup, setup)
         .run();
 }
 
-fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+fn setup(mut commands: Commands) {
     commands.spawn(Camera2dBundle::default());
-    commands.spawn(SpriteBundle {
-        texture: asset_server.load("ducky.png"),
-        ..Default::default()
-    });
 }
