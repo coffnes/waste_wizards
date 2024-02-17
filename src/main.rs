@@ -8,10 +8,13 @@
 
 pub mod ui;
 pub mod game_manager;
+pub mod game;
+pub mod splash;
 
 use bevy::prelude::*;
 use game_manager::GameState;
 use ui::main_menu::*;
+use splash::splash_plugin;
 
 fn main() {
     App::new()
@@ -20,6 +23,7 @@ fn main() {
         .insert_resource(Volume(7))
         .add_state::<GameState>()
         .add_systems(Startup, setup)
+        .add_plugins(splash_plugin)
         .run();
 }
 
